@@ -9,9 +9,13 @@ function distance(x1: number, y1: number, x2: number, y2: number) {
   return Math.hypot(x2 - x1, y2 - y1);
 }
 
-function CircleCanvas() {
+type CircleCanvasProps = {
+  circles: Circle[];
+  setCircles: React.Dispatch<React.SetStateAction<Circle[]>>;
+};
+
+function CircleCanvas({ circles, setCircles }: CircleCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [circles, setCircles] = useState<Circle[]>([]);
   const [pendingCenter, setPendingCenter] = useState<{
     cx: number;
     cy: number;

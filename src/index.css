@@ -23,3 +23,34 @@ canvas {
   color: #6b7280;
   margin-top: 0.5rem;
 }
+
+.toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .toolbar button {
+    padding: 0.5rem 0.875rem;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background: #fff;
+    cursor: pointer;
+  }
+  
+  .toolbar button:hover:not(:disabled) {
+    background: #f3f4f6;
+  }
+  
+  .toolbar button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .toolbar__count {
+    margin-left: auto;
+    font-size: 0.875rem;
+    color: #6b7280;
+  }
