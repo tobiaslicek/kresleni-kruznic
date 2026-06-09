@@ -1,4 +1,4 @@
-# Kreslení kružnic — Fiosoft úkol
+# Kreslení kružnic
 
 React aplikace pro interaktivní kreslení kružnic na canvasu a výpočet jejich společných tečen.
 
@@ -9,7 +9,7 @@ npm install
 npm run dev
 ```
 
-Aplikace běží na http://localhost:5173
+Adresa se zobrazí v terminálu (obvykle http://localhost:5173).
 
 ## Build
 
@@ -18,12 +18,14 @@ npm run build
 npm run preview
 ```
 
+Adresa se zobrazí v terminálu (obvykle http://localhost:4173).
+
 ## Použití
 
 1. Kliknutí na canvas určí střed kružnice
 2. Pohyb myší nastaví poloměr (náhled čárkovanou kružnicí)
 3. Druhý klik kružnici uloží
-4. Můžeme opakovat pro další kružnice
+4. Opakujte pro další kružnice
 5. Tlačítko „Vykreslit tečny" spočítá a vykreslí společné tečny pro všechny páry kružnic
 
 ## Technologie
@@ -31,17 +33,18 @@ npm run preview
 - React 19 + TypeScript
 - Vite
 - HTML Canvas API
-- Geometrie v `src/utils/geometry.ts` (odděleně od UI)
+- CSS
+- ESLint, Prettier
 
 ## Struktura
 
 ```
 src/
-  App.tsx              — stav aplikace
+  App.tsx              - stav aplikace
   components/
-    CircleCanvas.tsx   — canvas, kreslení, interakce
-    Toolbar.tsx        — ovládací tlačítka
+    CircleCanvas.tsx   - canvas, kreslení, interakce
+    Toolbar.tsx        - ovládací tlačítka
   utils/
-    geometry.ts        — výpočet společných tečen
-  types.ts             — Circle, Tangent
+    geometry.ts        - výpočet společných tečen
+  types.ts             - Circle, Tangent
 ```
