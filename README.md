@@ -28,7 +28,9 @@ Adresa se zobrazí v terminálu (obvykle http://localhost:4173).
 2. Pohyb myší nastaví poloměr (náhled čárkovanou kružnicí)
 3. Druhý klik kružnici uloží
 4. Opakujte pro další kružnice
-5. Tlačítko „Vykreslit tečny" spočítá a vykreslí společné tečny pro všechny páry kružnic
+5. Tlačítko „Smazat poslední" odstraní naposledy zakreslenou kružnici (a zruší vykreslené tečny)
+6. Tlačítko „Vymazat vše" smaže všechny kružnice i tečny
+7. Tlačítko „Vykreslit tečny" spočítá a vykreslí společné tečny pro všechny páry kružnic (vyžaduje alespoň 2 kružnice)
 
 ## Technologie
 
