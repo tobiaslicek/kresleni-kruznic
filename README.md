@@ -1,73 +1,47 @@
-# React + TypeScript + Vite
+# Kreslení kružnic — Fiosoft úkol
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React aplikace pro interaktivní kreslení kružnic na canvasu a výpočet jejich společných tečen.
 
-Currently, two official plugins are available:
+## Spuštění
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Aplikace běží na http://localhost:5173
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
+## Build
 
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+```bash
+npm run build
+npm run preview
+```
+
+## Použití
+
+1. Kliknutí na canvas určí střed kružnice
+2. Pohyb myší nastaví poloměr (náhled čárkovanou kružnicí)
+3. Druhý klik kružnici uloží
+4. Můžeme opakovat pro další kružnice
+5. Tlačítko „Vykreslit tečny" spočítá a vykreslí společné tečny pro všechny páry kružnic
+
+## Technologie
+
+- React 19 + TypeScript
+- Vite
+- HTML Canvas API
+- Geometrie v `src/utils/geometry.ts` (odděleně od UI)
+
+## Struktura
+
+```
+src/
+  App.tsx              — stav aplikace
+  components/
+    CircleCanvas.tsx   — canvas, kreslení, interakce
+    Toolbar.tsx        — ovládací tlačítka
+  utils/
+    geometry.ts        — výpočet společných tečen
+  types.ts             — Circle, Tangent
 ```

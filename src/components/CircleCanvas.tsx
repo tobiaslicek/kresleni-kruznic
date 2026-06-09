@@ -1,5 +1,11 @@
-import { useEffect, useRef, useState } from 'react';
-import type { Circle, Tangent } from '../types';
+import {
+  useEffect,
+  useRef,
+  useState,
+  type Dispatch,
+  type SetStateAction,
+} from 'react';
+import type { Circle, DrawingPhase, Tangent } from '../types';
 
 const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 600;
@@ -11,17 +17,27 @@ function distance(x1: number, y1: number, x2: number, y2: number) {
 
 type CircleCanvasProps = {
   circles: Circle[];
-  setCircles: React.Dispatch<React.SetStateAction<Circle[]>>;
+  setCircles: Dispatch<SetStateAction<Circle[]>>;
   tangents: Tangent[];
+  onDrawingPhaseChange: (phase: DrawingPhase) => void;
 };
 
-function CircleCanvas({ circles, setCircles, tangents }: CircleCanvasProps) {
+function CircleCanvas({
+  circles,
+  setCircles,
+  tangents,
+  onDrawingPhaseChange,
+}: CircleCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [pendingCenter, setPendingCenter] = useState<{
     cx: number;
     cy: number;
   } | null>(null);
   const [previewRadius, setPreviewRadius] = useState(0);
+
+  useEffect(() => {
+    onDrawingPhaseChange(pendingCenter ? 'radius' : 'center');
+  }, [pendingCenter, onDrawingPhaseChange]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -74,9 +90,11 @@ function CircleCanvas({ circles, setCircles, tangents }: CircleCanvasProps) {
   const getCanvasPoint = (event: React.MouseEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current!;
     const rect = canvas.getBoundingClientRect();
+    const scaleX = CANVAS_WIDTH / rect.width;
+    const scaleY = CANVAS_HEIGHT / rect.height;
     return {
-      x: event.clientX - rect.left,
-      y: event.clientY - rect.top,
+      x: (event.clientX - rect.left) * scaleX,
+      y: (event.clientY - rect.top) * scaleY,
     };
   };
 
@@ -95,7 +113,6 @@ function CircleCanvas({ circles, setCircles, tangents }: CircleCanvasProps) {
     setCircles((prev) => [
       ...prev,
       {
-        id: crypto.randomUUID(),
         cx: pendingCenter.cx,
         cy: pendingCenter.cy,
         radius,
@@ -113,13 +130,15 @@ function CircleCanvas({ circles, setCircles, tangents }: CircleCanvasProps) {
   };
 
   return (
-    <canvas
-      ref={canvasRef}
-      width={CANVAS_WIDTH}
-      height={CANVAS_HEIGHT}
-      onClick={handleClick}
-      onMouseMove={handleMouseMove}
-    />
+    <div className="canvas-wrapper">
+      <canvas
+        ref={canvasRef}
+        width={CANVAS_WIDTH}
+        height={CANVAS_HEIGHT}
+        onClick={handleClick}
+        onMouseMove={handleMouseMove}
+      />
+    </div>
   );
 }
 
