@@ -2,7 +2,7 @@
 
 React aplikace pro interaktivní kreslení kružnic na canvasu a výpočet jejich společných tečen.
 
-**Náhled:** https://tobiaslicek.github.io/kresleni-kruznic/
+Aplikaci lze otevřít online na [tobiaslicek.github.io/kresleni-kruznic](https://tobiaslicek.github.io/kresleni-kruznic/).
 
 ## Spuštění
 
