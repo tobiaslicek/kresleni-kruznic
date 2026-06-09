@@ -2,9 +2,15 @@ type ToolbarProps = {
   circleCount: number;
   onRemoveLast: () => void;
   onClearAll: () => void;
+  onDrawTangents: () => void;
 };
 
-function Toolbar({ circleCount, onRemoveLast, onClearAll }: ToolbarProps) {
+function Toolbar({
+  circleCount,
+  onRemoveLast,
+  onClearAll,
+  onDrawTangents,
+}: ToolbarProps) {
   const hasCircles = circleCount > 0;
 
   return (
@@ -17,7 +23,7 @@ function Toolbar({ circleCount, onRemoveLast, onClearAll }: ToolbarProps) {
         Vymazat vše
       </button>
 
-      <button type="button" disabled={circleCount < 2}>
+      <button type="button" disabled={circleCount < 2} onClick={onDrawTangents}>
         Vykreslit tečny
       </button>
 

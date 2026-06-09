@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import type { Circle } from '../types';
+import type { Circle, Tangent } from '../types';
 
 const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 600;
@@ -12,9 +12,10 @@ function distance(x1: number, y1: number, x2: number, y2: number) {
 type CircleCanvasProps = {
   circles: Circle[];
   setCircles: React.Dispatch<React.SetStateAction<Circle[]>>;
+  tangents: Tangent[];
 };
 
-function CircleCanvas({ circles, setCircles }: CircleCanvasProps) {
+function CircleCanvas({ circles, setCircles, tangents }: CircleCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [pendingCenter, setPendingCenter] = useState<{
     cx: number;
@@ -41,6 +42,15 @@ function CircleCanvas({ circles, setCircles }: CircleCanvasProps) {
       ctx.stroke();
     }
 
+    for (const t of tangents) {
+      ctx.beginPath();
+      ctx.moveTo(t.x1, t.y1);
+      ctx.lineTo(t.x2, t.y2);
+      ctx.strokeStyle = '#dc2626';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+
     if (pendingCenter && previewRadius >= MIN_RADIUS) {
       ctx.beginPath();
       ctx.arc(
@@ -59,7 +69,7 @@ function CircleCanvas({ circles, setCircles }: CircleCanvasProps) {
       ctx.fillStyle = '#2563eb';
       ctx.fill();
     }
-  }, [circles, pendingCenter, previewRadius]);
+  }, [circles, pendingCenter, previewRadius, tangents]);
 
   const getCanvasPoint = (event: React.MouseEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current!;

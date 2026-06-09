@@ -1,19 +1,27 @@
 import { useState } from 'react';
 import CircleCanvas from './components/CircleCanvas';
 import Toolbar from './components/Toolbar';
-import type { Circle } from './types';
+import type { Circle, Tangent } from './types';
+import { getAllTangents } from './utils/geometry';
 
 function App() {
   const [circles, setCircles] = useState<Circle[]>([]);
+  const [tangents, setTangents] = useState<Tangent[]>([]);
   const [draftReset, setDraftReset] = useState(0);
 
   const removeLastCircle = () => {
     setCircles((prev) => prev.slice(0, -1));
+    setTangents([]);
   };
 
   const clearAll = () => {
     setCircles([]);
+    setTangents([]);
     setDraftReset((n) => n + 1);
+  };
+
+  const drawTangents = () => {
+    setTangents(getAllTangents(circles));
   };
 
   return (
@@ -24,12 +32,14 @@ function App() {
         circleCount={circles.length}
         onRemoveLast={removeLastCircle}
         onClearAll={clearAll}
+        onDrawTangents={drawTangents}
       />
 
       <CircleCanvas
         key={draftReset}
         circles={circles}
         setCircles={setCircles}
+        tangents={tangents}
       />
 
       <p className="hint">
